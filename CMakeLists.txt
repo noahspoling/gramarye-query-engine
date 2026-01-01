@@ -20,23 +20,33 @@ option(BUILD_QUERY_SHELL "Build standalone query shell executable" OFF)
 # Fetch dependencies
 include(FetchContent)
 
-FetchContent_Declare(
-    gramarye_libcore
-    GIT_REPOSITORY "https://github.com/noahspoling/gramarye-libcore.git"
-    GIT_TAG "main"
-    GIT_PROGRESS TRUE
-    GIT_SHALLOW TRUE
-)
-FetchContent_MakeAvailable(gramarye_libcore)
+# Only fetch gramarye-libcore if it doesn't already exist (e.g., from parent project)
+if(NOT TARGET gramarye-libcore)
+    FetchContent_Declare(
+        gramarye_libcore
+        GIT_REPOSITORY "https://github.com/noahspoling/gramarye-libcore.git"
+        GIT_TAG "main"
+        GIT_PROGRESS TRUE
+        GIT_SHALLOW TRUE
+    )
+    FetchContent_MakeAvailable(gramarye_libcore)
+else()
+    message(STATUS "gramarye-libcore already available (from parent project)")
+endif()
 
-FetchContent_Declare(
-    gramarye_ecs
-    GIT_REPOSITORY "https://github.com/noahspoling/gramarye-ecs.git"
-    GIT_TAG "main"
-    GIT_PROGRESS TRUE
-    GIT_SHALLOW TRUE
-)
-FetchContent_MakeAvailable(gramarye_ecs)
+# Only fetch gramarye-ecs if it doesn't already exist (e.g., from parent project)
+if(NOT TARGET gramarye-ecs)
+    FetchContent_Declare(
+        gramarye_ecs
+        GIT_REPOSITORY "https://github.com/noahspoling/gramarye-ecs.git"
+        GIT_TAG "main"
+        GIT_PROGRESS TRUE
+        GIT_SHALLOW TRUE
+    )
+    FetchContent_MakeAvailable(gramarye_ecs)
+else()
+    message(STATUS "gramarye-ecs already available (from parent project)")
+endif()
 
 # Source files
 file(GLOB SRC_FILES
