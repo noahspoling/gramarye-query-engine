@@ -160,7 +160,7 @@ int main(void) {
     if (!shell) {
         fprintf(stderr, "Failed to create query shell\n");
         ECS_destroy(ecs);
-        Arena_free(&arena);
+        Arena_free(arena);
         return 1;
     }
     
